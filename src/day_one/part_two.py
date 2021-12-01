@@ -3,10 +3,8 @@ count_of_increases = 0
 with open("input.txt", "r") as input:
     depths = list(map(lambda x: int(x.strip()), input.readlines()))
     sum_of_previous_depths = None
-    for index, depth in enumerate(depths):
-        if index + 2 > len(depths) - 1:
-            break
-        sum_of_current_depths = depths[index] + depths[index + 1] + depths[index + 2]
+    for index in range(0, len(depths) - 2):
+        sum_of_current_depths = sum(depths[index : index + 3])
         if (sum_of_previous_depths is not None) and (
             sum_of_current_depths - sum_of_previous_depths > 0
         ):
