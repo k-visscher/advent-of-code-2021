@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 count_of_increases = 0
-with open("input.txt", "r") as input:
+with open("input.txt") as input:
     depths = list(map(lambda x: int(x.strip()), input.readlines()))
     previous_depth = None
     for current_depth in depths:
