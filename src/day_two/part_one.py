@@ -15,5 +15,4 @@ with open("input.txt") as input:
             vertical_position -= movement[1]
         else:
             vertical_position += movement[1]
-
 print(horizontal_position * vertical_position)

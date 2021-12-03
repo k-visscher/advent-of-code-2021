@@ -17,5 +17,4 @@ with open("input.txt") as input:
             aim -= movement[1]
         else:
             aim += movement[1]
-
 print(horizontal_position * vertical_position)
