@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 gamma_rate = 0
 epsilon_rate = 0
-
 with open("input.txt") as f:
     bytes = list(map(lambda x: x.strip(), f.readlines()))
     for i in range(0, len(bytes[0])):
@@ -16,5 +15,4 @@ with open("input.txt") as f:
         else:
             gamma_rate = (gamma_rate << 1) | 0
             epsilon_rate = (epsilon_rate << 1) | 1
-
 print(gamma_rate * epsilon_rate)
