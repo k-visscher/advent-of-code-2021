@@ -32,61 +32,32 @@ def add_line_to_diagram(line, diagram):
     horizontal = line.start.y == line.end.y
     vertical = line.start.x == line.end.x
 
+    x_diff = abs(line.start.x - line.end.x)
+    y_diff = abs(line.start.y - line.end.y)
+    min_x = min(line.start.x, line.end.x)
+    min_y = min(line.start.y, line.end.y)
+
     if horizontal:
-        for i in (
-            range(line.start.x, line.end.x + 1)
-            if line.end.x == max(line.start.x, line.end.x)
-            else range(line.end.x, line.start.x + 1)
-        ):
+        for i in range(min_x, min_x + x_diff + 1):
             diagram[line.start.y][i] += 1
     elif vertical:
-        for i in (
-            range(line.start.y, line.end.y + 1)
-            if line.end.y == max(line.start.y, line.end.y)
-            else range(line.end.y, line.start.y + 1)
-        ):
+        for i in range(min_y, min_y + y_diff + 1):
             diagram[i][line.start.x] += 1
     else:
         # diagonal
-        #
-        # from top left to bottom right
-        # \
-        # \
-        #  x
-        # from bottom right to top left
-        # x
-        # \
-        #  \
+        x_range = None
+        y_range = None
+
         if (line.start.x < line.end.x and line.start.y < line.end.y) or (
             line.start.x > line.end.x and line.start.y > line.end.y
         ):
-            x_range = (
-                range(line.start.x, line.end.x + 1)
-                if line.end.x == max(line.start.x, line.end.x)
-                else range(line.end.x, line.start.x + 1)
-            )
-            y_range = (
-                range(line.start.y, line.end.y + 1)
-                if line.end.y == max(line.start.y, line.end.y)
-                else range(line.end.y, line.start.y + 1)
-            )
-            for pos in zip(x_range, y_range):
-                diagram[pos[1]][pos[0]] += 1
-        # from bottom left to top right
-        #  x
-        # /
-        # /
-        # from bottom right to top left
-        #  /
-        # /
-        # x
+            # from top left to bottom right
+            # from bottom right to top left
+            x_range = range(min_x, min_x + x_diff + 1)
+            y_range = range(min_y, min_y + y_diff + 1)
         else:
-            x_range = None
-            y_range = None
-
-            x_diff = abs(line.end.x - line.start.x)
-            y_diff = abs(line.start.y - line.end.y)
-
+            # from bottom left to top right
+            # from bottom right to top left
             if line.start.x < line.end.x:
                 x_range = list(range(line.start.x, line.start.x + x_diff + 1))
                 y_range = list(range(line.start.y, line.start.y - y_diff - 1, -1))
@@ -94,8 +65,8 @@ def add_line_to_diagram(line, diagram):
                 x_range = list(range(line.start.x, line.start.x - x_diff - 1, -1))
                 y_range = list(range(line.start.y, line.start.y + y_diff + 1))
 
-            for pos in zip(x_range, y_range):
-                diagram[pos[1]][pos[0]] += 1
+        for pos in zip(x_range, y_range):
+            diagram[pos[1]][pos[0]] += 1
 
 
 with open("input.txt") as input:

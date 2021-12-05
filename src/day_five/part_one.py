@@ -31,19 +31,16 @@ def max_y(acc, line):
 def add_line_to_diagram(line, diagram):
     horizontal = line.start.y == line.end.y
 
+    x_diff = abs(line.start.x - line.end.x)
+    y_diff = abs(line.start.y - line.end.y)
+    min_x = min(line.start.x, line.end.x)
+    min_y = min(line.start.y, line.end.y)
+
     if horizontal:
-        for i in (
-            range(line.start.x, line.end.x + 1)
-            if line.end.x == max(line.start.x, line.end.x)
-            else range(line.end.x, line.start.x + 1)
-        ):
+        for i in range(min_x, min_x + x_diff + 1):
             diagram[line.start.y][i] += 1
     else:
-        for i in (
-            range(line.start.y, line.end.y + 1)
-            if line.end.y == max(line.start.y, line.end.y)
-            else range(line.end.y, line.start.y + 1)
-        ):
+        for i in range(min_y, min_y + y_diff + 1):
             diagram[i][line.start.x] += 1
 
 
