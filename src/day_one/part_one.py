@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
-count_of_increases = 0
+from functools import reduce
+
 with open("input.txt") as input:
     depths = list(map(lambda x: int(x.strip()), input.readlines()))
-    previous_depth = None
-    for current_depth in depths:
-        if (previous_depth is not None) and (current_depth - previous_depth > 0):
-            count_of_increases += 1
-        previous_depth = current_depth
-print(count_of_increases)
+    count_of_increases = reduce(lambda acc, x: acc + 1 if x[1] - x[0] > 0 else acc, zip(depths, depths[1:]), 0)
+    print(count_of_increases)

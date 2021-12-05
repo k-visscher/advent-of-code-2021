@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-horizontal_position = 0
-vertical_position = 0
+from functools import reduce
+
 with open("input.txt") as input:
     movements = list(
         map(
@@ -8,11 +8,6 @@ with open("input.txt") as input:
             input.readlines(),
         )
     )
-    for movement in movements:
-        if movement[0] == "forward":
-            horizontal_position += movement[1]
-        elif movement[0] == "up":
-            vertical_position -= movement[1]
-        else:
-            vertical_position += movement[1]
-print(horizontal_position * vertical_position)
+    horizontal_position = reduce(lambda acc, x: acc + x[1] if x[0] == "forward" else acc, movements, 0)
+    vertical_position = reduce(lambda acc, x: acc + x[1] if x[0] == "down" else acc - x[1], filter(lambda x: x[0] == "down" or x[0] == "up", movements), 0)
+    print(horizontal_position * vertical_position)
