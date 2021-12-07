@@ -12,7 +12,7 @@ with open("input.txt") as input:
             _(occurences)
             .items()
             .filter(lambda x: x[0] != i)
-            .map(lambda x: abs(i - x[0]) * x[1])
+            .map(lambda x: sum(range(1, abs(i - x[0]) + 1)) * x[1])
             .sum()
             ._
         )
