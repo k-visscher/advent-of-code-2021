@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-from typing import NewType
 from fluentpy import _
-from collections import namedtuple, Counter
+from collections import namedtuple
 
 SignalPatternsAndOutputs = namedtuple(
     "SignalPatternsAndOutputs", ["signal_patterns", "outputs"]
